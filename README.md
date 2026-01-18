@@ -1,6 +1,6 @@
 # Doctor Appointment Booking Agent
 
-An AI-powered medical appointment booking assistant built with **LangChain** and **FastAPI** for the backend, and **React** for the frontend.
+An AI-powered medical appointment booking assistant built with **LangChain** and **FastAPI** for the backend, and **React** for the frontend. Created using `Claude Opus 4.5` model.
 
 ## Architecture Overview
 
