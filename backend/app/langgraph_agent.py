@@ -67,14 +67,21 @@ Graph Structure:
 from typing import TypedDict, Annotated, Optional, List
 from langgraph.graph import StateGraph, END, START
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
 import json
 import uuid
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 from datetime import datetime
 
-from app.config import OPENAI_API_KEY, SPECIALIST_MAPPING
+from app.config import GROQ_API_KEY, SPECIALIST_MAPPING
 from app.mock_practo_api import get_hospitals_by_specialist
 
 
@@ -135,10 +142,10 @@ class DoctorAppointmentGraph:
     """
     
     def __init__(self):
-        self.llm = ChatOpenAI(
-            model="gpt-4o-mini",
+        self.llm = self.llm = ChatGroq(
+            model="llama-3.3-70b-versatile",
             temperature=0.3,
-            api_key=OPENAI_API_KEY
+            groq_api_key=GROQ_API_KEY
         )
         self.memory = MemorySaver()
         self.graph = self._build_graph()
@@ -393,6 +400,13 @@ Would you like me to find available {specialist_display}s near you and book an a
         selected_doctor = None
         selected_slot = None
         
+        # Debug: Log the IDs being searched for
+        logger.info("Looking for - hospital_id: %s, doctor_id: %s, slot_id: %s", 
+                    state.get("selected_hospital_id"), 
+                    state.get("selected_doctor_id"), 
+                    state.get("selected_slot_id"))
+        logger.info("Available hospitals count: %s", len(state.get("hospitals", [])))
+        
         for hospital in state.get("hospitals", []):
             if hospital["hospital_id"] == state.get("selected_hospital_id"):
                 selected_hospital = hospital
@@ -406,6 +420,9 @@ Would you like me to find available {specialist_display}s near you and book an a
                         break
                 break
         
+        logger.info("Selected hospital: %s", selected_hospital)
+        logger.info("Selected doctor: %s", selected_doctor)
+        logger.info("Selected slot: %s", selected_slot)
         if not all([selected_hospital, selected_doctor, selected_slot]):
             return {
                 "current_node": "slot_selector",
@@ -623,9 +640,12 @@ Thank you for using our service! Wishing you good health. 🏥"""
                     updates["awaiting_input"] = None
         
         elif awaiting == "slot_selection" and selected_data:
+            logger.info("Received selected_data from frontend: %s", selected_data)
             updates["selected_doctor_id"] = selected_data.get("doctor_id")
             updates["selected_hospital_id"] = selected_data.get("hospital_id")
             updates["selected_slot_id"] = selected_data.get("slot_id")
+            logger.info("Setting updates - doctor_id: %s, hospital_id: %s, slot_id: %s",
+                        updates["selected_doctor_id"], updates["selected_hospital_id"], updates["selected_slot_id"])
             updates["awaiting_input"] = None
         
         elif awaiting == "booking_confirmation":

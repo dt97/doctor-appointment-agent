@@ -247,10 +247,11 @@ def get_hospitals_by_specialist(specialist_type: str) -> List[Hospital]:
     hospitals_data = MOCK_HOSPITALS_DATA[specialist_key]
     hospitals = []
     
-    for hosp_data in hospitals_data:
+    for hosp_idx, hosp_data in enumerate(hospitals_data):
         doctors = []
-        for doc_data in hosp_data["doctors"]:
-            doctor_id = f"doc_{uuid.uuid4().hex[:8]}"
+        for doc_idx, doc_data in enumerate(hosp_data["doctors"]):
+            # Use deterministic ID based on hospital and doctor index to ensure consistency
+            doctor_id = f"doc_{hosp_data['hospital_id']}_{doc_idx}"
             doctors.append(Doctor(
                 doctor_id=doctor_id,
                 name=doc_data["name"],

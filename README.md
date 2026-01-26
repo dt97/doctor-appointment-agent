@@ -1,6 +1,16 @@
 # Doctor Appointment Booking Agent
 
-An AI-powered medical appointment booking assistant built with **LangChain** and **FastAPI** for the backend, and **React** for the frontend. Created using `Claude Opus 4.5` model.
+An AI powered medical appointment booking assistant built with **LangGraph**, **LangChain**, and **FastAPI** for the backend, and **React** for the frontend. Created using `Claude Opus 4.5` model.
+
+## Demo Video
+
+https://github.com/user-attachments/assets/doctor_appointment_agent_examples.mov
+
+<video src="videos/doctor_appointment_agent_examples.mov" controls width="100%">
+  Your browser does not support the video tag.
+</video>
+
+> **Note:** The video demonstrates the complete workflow from symptom collection to appointment booking confirmation.
 
 ## Architecture Overview
 
@@ -127,12 +137,12 @@ DoctorAppointmentBookingAgent/
 2. Create virtual environment:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate 
    ```
 
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   source venv/bin/activate && pip install -r requirements.txt
    ```
 
 4. Create `.env` file:
@@ -143,12 +153,12 @@ DoctorAppointmentBookingAgent/
 
 5. Run the backend:
    ```bash
-   uvicorn app.main:app --reload --port 8000
+   source venv/bin/activate && uvicorn app.main:app --reload --port 8000
    ```
 
 ### Frontend Setup
 
-1. Navigate to frontend directory:
+1. In another terminal tab, navigate to frontend directory:
    ```bash
    cd frontend
    ```

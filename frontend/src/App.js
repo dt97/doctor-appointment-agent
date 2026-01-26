@@ -298,7 +298,7 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>Powered by LangChain AI • For demonstration purposes only</p>
+        <p>Powered by LangChain • For demonstration purposes only</p>
       </footer>
     </div>
   );
