@@ -207,4 +207,4 @@ Agent: 🎉 Appointment Confirmed!
 
 - **Backend**: FastAPI, LangChain, Groq's llama-3.3-70b-versatile model, Pydantic
 - **Frontend**: React, Axios, Lucide Icons
-- **Styling**: Custom CSS with modern design
+- **Styling**: Custom CSS
