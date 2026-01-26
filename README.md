@@ -57,7 +57,7 @@ An AI powered medical appointment booking assistant built with **LangGraph**, **
 - The agent greets the user and asks about their medical concern
 - User describes symptoms in natural language
 
-### 2. Symptom Analysis (LangChain + GPT)
+### 2. Symptom Analysis (LangGraph + LLM)
 - The LLM analyzes the symptom description
 - Extracts key symptoms and maps them to specialist types
 - Uses a predefined mapping of symptoms → specialists:
@@ -89,38 +89,13 @@ An AI powered medical appointment booking assistant built with **LangGraph**, **
 - User confirms the appointment
 - Agent displays booking ID and guidelines
 
-## Project Structure
-
-```
-DoctorAppointmentBookingAgent/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── config.py          # Configuration and specialist mappings
-│   │   ├── models.py          # Pydantic models for data structures
-│   │   ├── mock_practo_api.py # Simulated Practo API
-│   │   ├── langchain_agent.py # Main LangChain agent logic
-│   │   └── main.py            # FastAPI application
-│   ├── requirements.txt
-│   └── .env.example
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── App.js             # Main React component
-│   │   ├── App.css            # Styles
-│   │   ├── index.js           # Entry point
-│   │   └── index.css          # Global styles
-│   └── package.json
-└── README.md
-```
-
 ## Setup Instructions
 
 ### Prerequisites
 - Python 3.9+
 - Node.js 18+
-- OpenAI API Key
+- Groq API Key
+   - Generate using steps [here](https://console.groq.com/docs/quickstart)
 
 ### Backend Setup
 
@@ -140,10 +115,9 @@ DoctorAppointmentBookingAgent/
    source venv/bin/activate && pip install -r requirements.txt
    ```
 
-4. Create `.env` file:
+4. Create `.env` file at project's root directory. Add Groq API key:
    ```bash
-   cp .env.example .env
-   # Edit .env and add your OpenAI API key
+   GROQ_API_KEY="<YOUR_GROQ_API_KEY>"
    ```
 
 5. Run the backend:
@@ -231,10 +205,6 @@ Agent: 🎉 Appointment Confirmed!
 
 ## Technologies Used
 
-- **Backend**: FastAPI, LangChain, OpenAI GPT-4o-mini, Pydantic
+- **Backend**: FastAPI, LangChain, Groq's llama-3.3-70b-versatile model, Pydantic
 - **Frontend**: React, Axios, Lucide Icons
 - **Styling**: Custom CSS with modern design
-
-## License
-
-MIT License
