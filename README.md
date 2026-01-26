@@ -4,13 +4,8 @@ An AI powered medical appointment booking assistant built with **LangGraph**, **
 
 ## Demo Video
 
-https://github.com/dt97/doctor-appointment-agent/tree/main/videos/doctor_appointment_agent_examples.mov
-
-<video src="videos/doctor_appointment_agent_examples.mov" controls width="100%">
-  Your browser does not support the video tag.
-</video>
-
-> **Note:** The video demonstrates the complete flow from symptom collection to appointment booking confirmation.
+![Demo](videos/demo_ent.gif)
+> **Note:** Watch the [full video](videos/doctor_appointment_agent_examples.mov) for more examples.
 
 ## Architecture Overview
 
